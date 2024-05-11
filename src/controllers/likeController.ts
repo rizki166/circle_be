@@ -42,3 +42,24 @@ export const createLike = async (req: Request, res: Response) => {
         });
     }
 }
+export const getCurrentLike = async (req: Request, res: Response) => {
+    try {
+        const { threadId } = req.params;
+        const userId = res.locals.user;
+        const like = await likeService.getCurrentLike(+threadId, +userId);
+        res.json({
+            status: true,
+            message: "success",
+            data:  {
+                like
+            }
+        });
+    } 
+     catch (error) {
+        const err = error as unknown as Error;
+        res.status(500).json({
+            status: false,
+            message: err.message
+        });
+    }
+}

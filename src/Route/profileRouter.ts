@@ -6,7 +6,7 @@ import { getProfile } from "../controllers/profileController";
 const profileRouter = Router();
 
 profileRouter.patch(
-   "/profile",
+   "/profile", 
    authentication,
    uploadMiddleware("cover"),
    updateProfile

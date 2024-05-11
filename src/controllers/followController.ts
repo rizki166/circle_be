@@ -26,11 +26,11 @@ export const follow = async (req: Request, res: Response) => {
 
 export const getFollowers = async (req: Request, res: Response) => {
    try {
-      const { followingId } = req.params;
-
+      // const { followingId } = req.params;
+      const userId = res.locals.user;
       const followers = await prisma.follow.findMany({
          where: {
-            followingId: +followingId,
+            followingId: +userId,
          },
          select: {
             follower: {
@@ -41,6 +41,7 @@ export const getFollowers = async (req: Request, res: Response) => {
                   profile: {
                      select: {
                         avatar: true,
+                        bio: true,
                      },
                   },
                },
@@ -65,11 +66,11 @@ export const getFollowers = async (req: Request, res: Response) => {
 
 export const getFollowings = async (req: Request, res: Response) => {
    try {
-      const { followerId } = req.params;
-
+      // const { followerId } = req.params;
+  const userId = res.locals.user;
       const followings = await prisma.follow.findMany({
          where: {
-            followerId: +followerId,
+            followerId: +userId,
          },
          include: {
             following: {
@@ -102,3 +103,32 @@ export const getFollowings = async (req: Request, res: Response) => {
       });
    }
 };
+
+// 
+
+export const checkFollowStatus = async(req: Request, res: Response) => {
+   try {
+   const loggeinId = res.locals.user;
+   const {id_user} = req.params;
+
+   const isFollowings = await prisma.follow.findFirst({
+      where: {
+         followerId: loggeinId,
+         followingId: +id_user
+      },
+   })
+   res.json({
+      success: true,
+      message: "success",
+      data: isFollowings ? true : false,
+   })
+   } catch (error) {
+      const err = error as Error;
+      console.log(err);
+
+      res.status(500).json({
+         success: false,
+         error: err.message,    
+      });
+   }
+}

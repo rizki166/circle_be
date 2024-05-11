@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 export const getThreads = async(req: Request, res: Response) => {
 try {
     const threads = await threadService.getThreads();
-    res.json({
+    res.json({ 
         status: true,
         message: "success",
         data: threads

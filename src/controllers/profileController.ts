@@ -3,12 +3,12 @@ import * as  profileService from "../services/profileService";
 
 export const updateProfile = async (req: Request, res: Response) => {
     try {
-       //    const { username, password } = req.body;
+       
        const userId = res.locals.user;
        const { body } = req;
        const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-       const cover = files.cover[0].filename;
-       const avatar = files.avatar[0].filename;
+       const cover = files.cover?.[0].filename;
+       const avatar = files.avatar?.[0].filename;
  
        if (cover) {
           body.cover = cover;
@@ -18,7 +18,7 @@ export const updateProfile = async (req: Request, res: Response) => {
           body.avatar = avatar;
        }
  
-       await profileService.updateProfile(userId, body);
+       await profileService.updateProfile(userId, body );
  
        res.json({
           status: true,

@@ -1,11 +1,17 @@
 export interface IRegister {
-    username: string,
+username: string,
  fullname: string,
  email: string,
  password: string 
 
 }
-
+export interface IUser {
+   username: string,
+   fullname: string,
+   email: string,
+   password: string 
+  
+}
 export enum EStastus {
     SUCCESS = "SUCCESS",
     FAIL = "FAILED", 
@@ -16,6 +22,8 @@ export type AuthMiddlewareData = {
  };
 
  export interface IProfile {
+   fullname? : string;
+    username? : string;
     bio? : string;
     avatar? : string;
     cover? : string;

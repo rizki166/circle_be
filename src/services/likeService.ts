@@ -61,4 +61,12 @@ export const createLike = async (payload: {
     });
  };
 
+ export const getCurrentLike = async (threadId: number, userId: number) => {
+    return await db.like.findFirst({
+       where: {
+          threadId,
+          userId
+       }
+    })
+ }
 

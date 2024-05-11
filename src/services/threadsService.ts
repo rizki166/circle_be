@@ -27,6 +27,7 @@ export const getThreads = async () => {
           _count: {
              select: {
                 replies: true,
+                like: true
              },
           },
        },
@@ -135,6 +136,7 @@ export const deleteThread = async (idThread: number, userId: number) => {
           _count: {
              select: {
                 replies: true,
+                like: true
              },
           },
        },

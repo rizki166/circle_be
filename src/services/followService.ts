@@ -19,7 +19,7 @@ export const follow = async (followerId: number, followingId: number) => {
       return "unfollowing successful";
    }
 
-   const follow = await db.follow.create({
+    await db.follow.create({
       data: {
          followerId,
          followingId,
@@ -28,3 +28,12 @@ export const follow = async (followerId: number, followingId: number) => {
 
    return "following successful";
 };
+
+export const getCurrentFollow = async (userId: number, followingId: number) => {
+   return await db.follow.findFirst({
+      where: {
+         followingId,
+        followerId: userId
+      }
+   })
+}
