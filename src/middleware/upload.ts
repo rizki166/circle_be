@@ -11,7 +11,6 @@ const storage = multer.diskStorage({
       cb(
          null,
          file.fieldname +
-            "-" +
             uniqueSuffix +
             file.originalname.replace(/\s/g, "")
       );
